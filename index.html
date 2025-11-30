@@ -7,813 +7,237 @@
     <title>Hamza Coaching Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #FFD700;
-            /* Gold/Honey */
-            --primary-hover: #E6C200;
+            --primary-dark: #D4AF37;
             --text-color: #333333;
+            --text-light: #555555;
             --bg-color: #FFFFFF;
             --bg-secondary: #F9F9F9;
-            --header-bg: rgba(255, 255, 255, 0.90);
+            --header-bg: rgba(255, 255, 255, 0.95);
             --card-bg: rgba(255, 255, 255, 0.9);
-            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.18);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(255, 215, 0, 0.25);
+            --transition: all 0.3s ease;
+            --border-radius: 16px;
         }
 
         [data-theme="dark"] {
             --primary-color: #FFD700;
-            --primary-hover: #E6C200;
+            --primary-dark: #FFC107;
             --text-color: #F4F4F4;
+            --text-light: #BBBBBB;
             --bg-color: #121212;
             --bg-secondary: #1E1E1E;
-            --header-bg: rgba(18, 18, 18, 0.90);
-            --card-bg: rgba(30, 30, 30, 0.9);
-            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+            --header-bg: rgba(18, 18, 18, 0.95);
+            --card-bg: rgba(30, 30, 30, 0.95);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 15px 40px rgba(255, 215, 0, 0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            transition: var(--transition);
+            transition: background-color 0.3s ease, color 0.3s ease;
             line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Background Icons */
-        .bg-icon {
-            position: fixed;
-            opacity: 0.03;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .bg-bee {
-            top: 10%;
-            left: 5%;
-            width: 150px;
-            transform: rotate(-15deg);
-        }
-
-        .bg-trophy {
-            bottom: 15%;
-            right: 5%;
-            width: 200px;
-            transform: rotate(10deg);
-        }
-
-        .bg-cap {
-            top: 40%;
-            right: 10%;
-            width: 120px;
-            transform: rotate(20deg);
-        }
-
-        .bg-book {
-            bottom: 10%;
-            left: 10%;
-            width: 180px;
-            transform: rotate(-5deg);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--header-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 1000;
-            box-shadow: var(--shadow);
-            padding: 1rem 0;
-            border-bottom: var(--glass-border);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-
-        .highlight {
-            color: var(--primary-color);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            order: 2;
-        }
-
-        /* Navigation */
-        .nav-menu {
-            order: 1;
-        }
-
-        .nav-list {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-        }
-
-        .nav-link {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color);
-        }
-
-        /* Mobile Menu Toggle */
-        #menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .bar {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-color);
-            margin: 5px 0;
-            transition: var(--transition);
-        }
-
-        /* Theme Toggle */
-        #theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-color);
-            padding: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .sun-icon {
-            display: none;
-        }
-
-        [data-theme="dark"] .sun-icon {
-            display: block;
-        }
-
-        [data-theme="dark"] .moon-icon {
-            display: none;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 14rem 0 8rem;
-            text-align: center;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.08) 0%, transparent 60%);
-        }
-
-        .hero-title {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-color) 30%, var(--primary-color) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            margin-bottom: 2rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .hero-description {
-            max-width: 750px;
-            margin: 0 auto 3rem;
-            font-size: 1.4rem;
-            opacity: 0.9;
-            font-style: italic;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
-            color: #000;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4);
-        }
-
-        /* About Section */
-        .about {
-            padding: 8rem 0;
-            background-color: var(--bg-secondary);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 4rem;
-            color: var(--text-color);
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 5px;
-            background: var(--primary-color);
-            margin: 15px auto 0;
-            border-radius: 5px;
-        }
-
-        .about-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .about-content p {
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-        }
-
-        /* Infrastructure Slider (Manual + Smaller) */
-        .infra-slider-wrapper {
-            position: relative;
-            max-width: 700px;
-            /* Smaller size */
-            margin: 3rem auto 0;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            aspect-ratio: 16/9;
-        }
-
-        .infra-slider {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            height: 100%;
-        }
-
-        .infra-slide {
-            min-width: 100%;
-            height: 100%;
-        }
-
-        .infra-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 1rem;
-            cursor: pointer;
-            z-index: 10;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .slider-btn:hover {
-            background: var(--primary-color);
-            color: #000;
-        }
-
-        .prev-btn {
-            left: 1rem;
-        }
-
-        .next-btn {
-            right: 1rem;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 8rem 0;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 3rem;
-        }
-
-        .service-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(5px);
-            padding: 3rem;
-            border-radius: 2rem;
-            box-shadow: var(--shadow);
-            border: var(--glass-border);
-            text-align: left;
-            border-top: 5px solid var(--primary-color);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .service-card h3 {
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-            font-size: 1.8rem;
-        }
-
-        .course-list {
-            list-style: none;
-            padding-left: 0;
-            /* Desktop: Scrollable */
-            max-height: 300px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-color) var(--bg-secondary);
-            padding-right: 0.5rem;
-        }
-
-        .course-list::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .course-list::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-            border-radius: 3px;
-        }
-
-        .course-list::-webkit-scrollbar-thumb {
-            background-color: var(--primary-color);
-            border-radius: 3px;
-        }
-
-        .course-list li {
-            margin-bottom: 1rem;
-            padding-left: 2rem;
-            position: relative;
-            font-size: 1.1rem;
-        }
-
-        .course-list li::before {
-            content: '🐝';
-            position: absolute;
-            left: 0;
-            font-size: 1rem;
-            top: 4px;
-        }
-
-        .view-courses-btn {
-            display: none;
-            /* Hidden by default on desktop */
-            width: 100%;
-            padding: 0.8rem;
-            margin-top: 1rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--primary-color);
-            color: var(--text-color);
-            border-radius: 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .view-courses-btn svg {
-            transition: transform 0.3s ease;
-        }
-
-        .view-courses-btn.active svg {
-            transform: rotate(180deg);
-        }
-
-        .view-courses-btn:hover {
-            background: var(--primary-color);
-            color: #000;
-        }
-
-        /* Offerings Section (Replaces Mentors) */
-        .offerings {
-            padding: 8rem 0;
-            background-color: var(--bg-secondary);
-        }
-
-        .offerings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            text-align: center;
-        }
-
-        .offering-card {
-            background: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: var(--glass-border);
-        }
-
-        .offering-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .offering-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .offering-card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-
-        /* Achievers Section (Hybrid Slider) */
-        .achievers {
-            padding: 8rem 0;
-            overflow: hidden;
-        }
-
-        .achievers-wrapper {
+        /* --- Background Floating Icons --- */
+        .bg-icon { position: fixed; opacity: 0.04; z-index: -1; pointer-events: none; color: var(--text-color); }
+        .bg-bee { top: 10%; left: 5%; width: 120px; animation: float 6s ease-in-out infinite; }
+        .bg-trophy { bottom: 15%; right: 5%; width: 150px; animation: float 8s ease-in-out infinite reverse; }
+        .bg-cap { top: 40%; right: 10%; width: 100px; animation: float 7s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
+
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+
+        /* --- Header --- */
+        .header { position: fixed; top: 0; left: 0; width: 100%; background-color: var(--header-bg); backdrop-filter: blur(10px); z-index: 1000; box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05); padding: 1rem 0; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-color); text-decoration: none; }
+        .highlight { color: var(--primary-color); }
+        .header-controls { display: flex; align-items: center; gap: 1rem; order: 2; }
+
+        .nav-menu { order: 1; }
+        .nav-list { display: flex; list-style: none; gap: 2rem; }
+        .nav-link { color: var(--text-color); text-decoration: none; font-weight: 600; position: relative; padding: 5px 0; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 3px; bottom: 0; left: 0; background-color: var(--primary-color); transition: var(--transition); border-radius: 2px; }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover { color: var(--primary-color); }
+
+        #menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 1002; }
+        .bar { display: block; width: 28px; height: 3px; background-color: var(--text-color); margin: 6px 0; transition: var(--transition); border-radius: 3px; }
+        
+        #theme-toggle { background: none; border: none; cursor: pointer; color: var(--text-color); padding: 0.5rem; display: flex; align-items: center; transition: var(--transition); }
+        .sun-icon { display: none; }
+        [data-theme="dark"] .sun-icon { display: block; }
+        [data-theme="dark"] .moon-icon { display: none; }
+
+        /* --- Hero Section --- */
+        .hero { padding: 16rem 0 10rem; text-align: center; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 70%); }
+        .hero-title { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1px; }
+        .hero-subtitle { font-size: 1.5rem; color: var(--text-light); margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .btn { display: inline-block; padding: 1rem 3rem; border-radius: 50px; text-decoration: none; font-weight: 700; transition: var(--transition); border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3); font-size: 1rem; }
+        .btn-primary { background: var(--primary-color); color: #000; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(255, 215, 0, 0.5); }
+
+        section { padding: 6rem 0; }
+        .bg-alt { background-color: var(--bg-secondary); }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-title { font-size: 2.5rem; font-weight: 800; display: inline-block; position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 5px; background: var(--primary-color); margin: 10px auto 0; border-radius: 10px; }
+        .section-desc { margin-top: 1rem; color: var(--text-light); font-size: 1.1rem; }
+
+        /* --- About Section --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-text h3 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--primary-color); }
+        .about-text p { margin-bottom: 1.5rem; color: var(--text-light); }
+        .slider-wrapper { position: relative; border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 16/9; }
+        .slider { display: flex; transition: transform 0.5s ease; height: 100%; }
+        .slide { min-width: 100%; height: 100%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        .slider-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 1rem; transform: translateY(-50%); pointer-events: none; }
+        .slider-btn { pointer-events: auto; background: rgba(0,0,0,0.6); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .slider-btn:hover { background: var(--primary-color); color: #000; }
+
+        /* --- Courses Section --- */
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        
+        .course-card { 
+            background: var(--card-bg); 
+            padding: 2.5rem; 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--shadow); 
+            transition: var(--transition); 
+            position: relative; 
+            overflow: hidden; 
+            border-top: 5px solid transparent; /* Placeholder for colors */
+        }
+        
+        .course-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+        .course-card h3 { font-size: 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        
+        /* --- Unique Colors for Course Cards --- */
+        /* 1. Technical (Cyan/Blue) */
+        .courses-grid .course-card:nth-child(1) { border-color: #FFD700; }
+        .courses-grid .course-card:nth-child(1) h3 { color:  #FFD700; }
+
+        /* 2. Competitive (Orange/Red) */
+        .courses-grid .course-card:nth-child(2) { border-color:  #FFD700; }
+        .courses-grid .course-card:nth-child(2) h3 { color:  #FFD700; }
+
+        /* 3. Entrance (Green) */
+        .courses-grid .course-card:nth-child(3) { border-color:  #FFD700; }
+        .courses-grid .course-card:nth-child(3) h3 { color:  #FFD700; }
+
+        /* 4. Career Growth (Purple) */
+        .courses-grid .course-card:nth-child(4) { border-color:  #FFD700; }
+        .courses-grid .course-card:nth-child(4) h3 { color:  #FFD700; }
+
+        /* Course List Styling */
+        .course-list { 
+            list-style: none; 
+            transition: max-height 0.5s ease;
+        }
+
+        .course-list::-webkit-scrollbar { width: 6px; }
+        .course-list::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 3px; }
+        .course-list::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
+        
+        .course-list li { padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); color: var(--text-light); display: flex; align-items: center; gap: 10px; }
+        .course-list li:last-child { border-bottom: none; }
+        .course-list li::before { content: '🐝'; font-size: 0.8rem; }
+
+        .toggle-btn { width: 100%; margin-top: 1.5rem; padding: 0.8rem; background: transparent; border: 2px solid var(--primary-color); color: var(--text-color); font-weight: 700; border-radius: 10px; cursor: pointer; transition: var(--transition); }
+        .toggle-btn:hover { background: var(--primary-color); color: #000; }
+
+        /* --- BIG SCREEN (Desktop) Behavior: No Toggle, Always Scroll --- */
+        @media (min-width: 769px) {
+            .toggle-btn { display: none; } /* Hide Button */
+            .course-list {
+                max-height: 300px; /* Fixed Height */
+                overflow-y: auto;  /* Enable Scroll */
+                padding-right: 5px;
+            }
+        }
+
+        /* --- MOBILE Behavior: Toggle Button --- */
+        @media (max-width: 768px) {
+            .course-list { max-height: 200px; overflow: hidden; } /* Collapsed */
+            .course-list.expanded { max-height: 500px; overflow-y: visible; } /* Expanded */
+        }
+
+        /* --- Achievers --- */
+        .achievers-container {
             width: 100%;
             overflow-x: auto;
-            white-space: nowrap;
+            position: relative;
             padding: 2rem 0;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            /* Firefox */
             cursor: grab;
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
         }
+        .achievers-container::-webkit-scrollbar { display: none; }
+        .achievers-track { display: flex; gap: 2rem; width: max-content; }
 
-        .achievers-wrapper::-webkit-scrollbar {
-            display: none;
-        }
+        .profile-card { width: 250px; background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.05); user-select: none; }
+        .profile-icon { width: 70px; height: 70px; margin: 0 auto 1rem; background-color: #FFD700; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-color); }
+        .profile-icon svg { width: 35px; height: 35px; }
+        .profile-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.2rem; }
+        .profile-exam { color: var(--primary-dark); font-weight: 600; font-size: 0.9rem; }
+        .profile-batch { color: var(--text-light); font-size: 0.8rem; margin-top: 5px; }
 
-        /* Chrome/Safari */
+        /* Offerings & Contact */
+        .offerings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+        .offering-item { background: var(--card-bg); padding: 2rem; border-radius: var(--border-radius); text-align: center; box-shadow: var(--shadow); transition: var(--transition); }
+        .offering-item:hover { transform: translateY(-5px); border-bottom: 4px solid var(--primary-color); }
+        .offering-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
 
-        .achievers-track {
-            display: inline-flex;
-            gap: 2rem;
-            /* Animation handled by JS for infinite feel or CSS if content is duplicated enough */
-        }
+        .contact-wrapper { background: var(--card-bg); border-radius: var(--border-radius); box-shadow: var(--shadow); overflow: hidden; max-width: 900px; margin: 0 auto; padding: 3rem; }
+        .contact-details { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; text-align: center; }
+        .cp-icon { width: 50px; height: 50px; background: var(--primary-color); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+        .social-row { display: flex; justify-content: center; gap: 1.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1); }
+        .social-btn { width: 55px; height: 55px; background: var(--bg-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-color); transition: var(--transition); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .social-btn:hover { background: #000; color: var(--primary-color); transform: translateY(-5px); }
 
-        .achiever-card {
-            width: 320px;
-            background: var(--card-bg);
-            border-radius: 2rem;
-            box-shadow: var(--shadow);
-            padding: 2rem;
-            text-align: center;
-            flex-shrink: 0;
-            white-space: normal;
-            border: var(--glass-border);
-            transition: var(--transition);
-        }
+        footer { text-align: center; padding: 2rem; background: var(--bg-secondary); color: var(--text-light); font-size: 0.9rem; }
 
-        .achiever-card:hover {
-            transform: scale(1.05);
-        }
-
-        .achiever-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1.5rem;
-            border: 4px solid var(--primary-color);
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 8rem 0;
-            background-color: var(--bg-secondary);
-        }
-
-        .contact-card {
-            background: var(--card-bg);
-            padding: 4rem;
-            border-radius: 2.5rem;
-            box-shadow: var(--shadow);
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-            border: var(--glass-border);
-        }
-
-        .contact-info-grid {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-            margin-bottom: 3rem;
-        }
-
-        .contact-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .contact-icon-circle {
-            width: 60px;
-            height: 60px;
-            background: var(--bg-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
-            box-shadow: var(--shadow);
-        }
-
-        .contact-item p {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .social-icon {
-            color: var(--text-color);
-            font-size: 2rem;
-            padding: 1.5rem;
-            background: var(--bg-color);
-            border-radius: 50%;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow);
-        }
-
-        .social-icon:hover {
-            color: var(--primary-color);
-            transform: translateY(-8px) rotate(10deg);
-            background: #000;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--bg-secondary);
-            padding: 3rem 0;
-            text-align: center;
-            margin-top: auto;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            font-weight: 600;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            #menu-toggle {
-                display: block;
-                z-index: 1001;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                height: 100vh;
-                background-color: var(--bg-color);
-                padding-top: 6rem;
-                transition: var(--transition);
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .nav-list {
-                flex-direction: column;
-                align-items: center;
-                gap: 2.5rem;
-            }
-
-            /* Home Page Text Sizing */
-            .hero-title,
-            .hero-subtitle {
-                font-size: 1.8rem;
-                line-height: 1.3;
-            }
-
-            .hero-description {
-                font-size: 1.1rem;
-            }
-
-            .infra-slider-wrapper {
-                width: 100%;
-            }
-
-            /* Hamburger Animation */
-            #menu-toggle.active .bar:nth-child(1) {
-                transform: rotate(-45deg) translate(-5px, 6px);
-            }
-
-            #menu-toggle.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-
-            #menu-toggle.active .bar:nth-child(3) {
-                transform: rotate(45deg) translate(-5px, -6px);
-            }
-
-            /* Mobile Course Toggle */
-            .view-courses-btn {
-                display: flex;
-            }
-
-            .course-list {
-                max-height: none;
-                /* Remove scroll limit on mobile */
-                overflow-y: visible;
-            }
-
-            /* Show only first 3 items by default on mobile */
-            .course-list li:nth-child(n+4) {
-                display: none;
-            }
-
-            /* Show all when expanded */
-            .course-list.expanded li:nth-child(n+4) {
-                display: block;
-                animation: fadeIn 0.5s;
-            }
-
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(-10px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+            .hero-title { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            #menu-toggle { display: block; }
+            .nav-menu { position: fixed; top: 0; right: -100%; width: 75%; height: 100vh; background: var(--bg-color); padding-top: 6rem; transition: var(--transition); box-shadow: -5px 0 20px rgba(0,0,0,0.1); }
+            .nav-menu.active { right: 0; }
+            .nav-list { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 
 <body>
-    <!-- Background Icons (SVGs) -->
-    <svg class="bg-icon bg-bee" viewBox="0 0 24 24" fill="currentColor">
-        <path
-            d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z" />
-    </svg>
-    <svg class="bg-icon bg-trophy" viewBox="0 0 24 24" fill="currentColor">
-        <path
-            d="M20.2 6.51l-2.73 13.63a2.99 2.99 0 0 1-2.94 2.41H9.47a3 3 0 0 1-2.94-2.41L3.8 6.51A3.03 3.03 0 0 1 6.74 3h10.52a3.03 3.03 0 0 1 2.94 3.51zM6.74 5a1.03 1.03 0 0 0-.98 1.17l2.73 13.63a1 1 0 0 0 .98.8h5.06a1 1 0 0 0 .98-.8l2.73-13.63A1.03 1.03 0 0 0 17.26 5H6.74z" />
-    </svg>
-    <svg class="bg-icon bg-cap" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
-    </svg>
-    <svg class="bg-icon bg-book" viewBox="0 0 24 24" fill="currentColor">
-        <path
-            d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
-    </svg>
+    <svg class="bg-icon bg-bee" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
+    <svg class="bg-icon bg-trophy" viewBox="0 0 24 24" fill="currentColor"><path d="M20.2 6.51l-2.73 13.63a2.99 2.99 0 0 1-2.94 2.41H9.47a3 3 0 0 1-2.94-2.41L3.8 6.51A3.03 3.03 0 0 1 6.74 3h10.52a3.03 3.03 0 0 1 2.94 3.51z"/></svg>
+    <svg class="bg-icon bg-cap" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
 
     <header class="header">
         <div class="container header-container">
-            <a href="#" class="logo">Hamza <span class="highlight">Coaching Hub</span></a>
-
+            <a href="#" class="logo">Hamza <span class="highlight">Coaching</span></a>
             <div class="header-controls">
-                <button id="theme-toggle" aria-label="Toggle Dark Mode">
-                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
-                <button id="menu-toggle" aria-label="Toggle Menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
+                <button id="theme-toggle"><svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+                <button id="menu-toggle"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
             </div>
-
             <nav class="nav-menu" id="nav-menu">
                 <ul class="nav-list">
-                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="#services" class="nav-link">Courses</a></li>
-                    <li class="nav-item"><a href="#offerings" class="nav-link">Offerings</a></li>
-                    <li class="nav-item"><a href="#achievers" class="nav-link">Achievers</a></li>
-                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#courses" class="nav-link">Courses</a></li>
+                    <li><a href="#achievers" class="nav-link">Achievers</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -821,279 +245,176 @@
 
     <main>
         <section id="home" class="hero">
-            <div class="container hero-content">
-                <h1 class="hero-title">Welcome to <span class="highlight">Hamza Coaching Hub</span></h1>
-                <p class="hero-subtitle">Your Path to Excellence</p>
-                <p class="hero-description">"Gathering knowledge step by step, like a bee from a flower, to build a hive
-                    of achievement."</p>
-                <a href="#contact" class="btn btn-primary">Join the Hive</a>
+            <div class="container">
+                <h1 class="hero-title">Welcome to <br><span class="highlight">Hamza Coaching Hub</span></h1>
+                <p class="hero-subtitle">"Gathering knowledge step by step, like a bee from a flower, to build a hive of massive achievement."</p>
+                <a href="#courses" class="btn btn-primary">Explore Courses</a>
             </div>
         </section>
 
-        <section id="about" class="about">
+        <section id="about" class="bg-alt">
             <div class="container">
-                <h2 class="section-title">About Us</h2>
-                <div class="about-content">
-                    <p>At Hamza Coaching Hub, we believe in the power of consistent effort and community. Just as bees
-                        work tirelessly to build their hive, we guide our students to gather knowledge systematically.
-                    </p>
-                    <p>Our "Bee Concept" represents our philosophy: diligent learning, structured growth, and the sweet
-                        taste of success.</p>
-
-                    <!-- Infrastructure Slider (Manual + Smaller) -->
-                    <div class="infra-slider-wrapper">
-                        <div class="infra-slider" id="infra-slider">
-                            <div class="infra-slide"><img src="outside.png" alt="Classroom">
-                            </div>
-                            <div class="infra-slide"><img
-                                    src="infraa.png" alt="Lab"></div>
-                            <div class="infra-slide"><img src="lab.png"
-                                    alt="Library"></div>
+                <div class="section-header"><h2 class="section-title">About Us</h2></div>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h3>Our Vision & Mission</h3>
+                        <p>Established with a passion for education, Hamza Coaching Hub is dedicated to transforming aspirants into achievers.</p>
+                        <p><strong>Our Mission:</strong> To provide affordable, high-quality technical and non-technical education to students in Erode and beyond.</p>
+                        <p><strong>Our Methodology:</strong> We combine traditional classroom teaching with modern practical labs.</p>
+                    </div>
+                    <div class="slider-wrapper">
+                        <div class="slider" id="infra-slider">
+                            <div class="slide"><img src="outside.png" alt="Campus View"></div>
+                            <div class="slide"><img src="infraa.png" alt="Classroom"></div>
+                            <div class="slide"><img src="lab.png" alt="Computer Lab"></div>
                         </div>
-                        <button class="slider-btn prev-btn" id="prev-btn">&#10094;</button>
-                        <button class="slider-btn next-btn" id="next-btn">&#10095;</button>
+                        <div class="slider-nav">
+                            <button class="slider-btn" id="prev-btn">&#10094;</button>
+                            <button class="slider-btn" id="next-btn">&#10095;</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="services" class="services">
+        <section id="courses">
             <div class="container">
-                <h2 class="section-title">Our Courses</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <h3>Technical Courses</h3>
+                <div class="section-header">
+                    <h2 class="section-title">Our Courses</h2>
+                    <p class="section-desc">Comprehensive curriculum designed for your success</p>
+                </div>
+                
+                <div class="courses-grid">
+                    <div class="course-card">
+                        <h3>💻 Technical</h3>
                         <ul class="course-list">
-                            <li>Java & Python</li>
-                            <li>C / C++ Programming</li>
-                            <li>Full Stack Development (MERN/MEAN)</li>
+                            <li>Java, Python, C, C++</li>
+                            <li>Full Stack (MERN/MEAN)</li>
                             <li>Data Science & Analytics</li>
-                            <li>React.js & Node.js</li>
-                            <li>Cyber Security & Ethical Hacking</li>
                             <li>AI & Machine Learning</li>
-                            <li>Cloud Computing (AWS/Azure)</li>
-                            <li>DevOps Engineering</li>
-                            <li>Mobile App Development (Flutter/React Native)</li>
-                            <li>Tally Prime & GST</li>
+                            <li>Cloud (AWS/Azure/GCP)</li>
+                            <li>Cyber Security & Hacking</li>
+                            <li>DevOps & Kubernetes</li>
+                            <li>Mobile App Dev (Flutter)</li>
+                            <li>Software Testing (Selenium)</li>
+                            <li>UI/UX Design</li>
+                            <li>Blockchain Technology</li>
+                            <li>Digital Marketing</li>
                         </ul>
-                        <button class="view-courses-btn">
-                            View More
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M6 9l6 6 6-6" />
-                            </svg>
-                        </button>
+                        <button class="toggle-btn">View More</button>
                     </div>
-                    <div class="service-card">
-                        <h3>Competitive Exams</h3>
+
+                    <div class="course-card">
+                        <h3>🏆 Competitive</h3>
                         <ul class="course-list">
                             <li>UPSC (Civil Services)</li>
                             <li>TNPSC Group 1, 2, 2A, 4</li>
                             <li>SSC CGL, CHSL, MTS</li>
-                            <li>RRB NTPC & Group D</li>
-                            <li>IBPS PO & Clerk</li>
-                            <li>SBI PO & Clerk</li>
-                            <li>RBI Assistant</li>
-                            <li>Police Constable & SI</li>
+                            <li>Banking (IBPS, SBI, RBI)</li>
+                            <li>Railway (RRB NTPC, JE)</li>
+                            <li>Police (SI & Constable)</li>
+                            <li>Defence (CDS, AFCAT, NDA)</li>
+                            <li>Teaching (TET, TRB, CTET)</li>
+                            <li>Insurance (LIC AAO/ADO)</li>
+                            <li>Post Office Exams</li>
                         </ul>
-                        <button class="view-courses-btn">
-                            View More
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M6 9l6 6 6-6" />
-                            </svg>
-                        </button>
+                        <button class="toggle-btn">View More</button>
                     </div>
-                    <div class="service-card">
-                        <h3>Entrance Exams</h3>
+
+                    <div class="course-card">
+                        <h3>🎓 Entrance Exams</h3>
                         <ul class="course-list">
-                            <li>GATE (CS/IT/ECE/EE)</li>
-                            <li>NEET (Medical Entrance)</li>
+                            <li>NEET (UG & PG)</li>
                             <li>JEE Mains & Advanced</li>
-                            <li>CAT / MAT / XAT (MBA)</li>
-                            <li>GRE & GMAT</li>
-                            <li>IELTS & TOEFL</li>
-                            <li>TANCET</li>
+                            <li>GATE (CS/IT/ECE/Mech)</li>
+                            <li>TANCET (MBA/MCA)</li>
+                            <li>CAT, MAT, XAT</li>
+                            <li>CA Foundation & Inter</li>
                             <li>CLAT (Law Entrance)</li>
+                            <li>IELTS, TOEFL, PTE</li>
+                            <li>GRE & GMAT</li>
+                            <li>NATA (Architecture)</li>
+                            <li>CUET (University)</li>
                         </ul>
-                        <button class="view-courses-btn">
-                            View More
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M6 9l6 6 6-6" />
-                            </svg>
-                        </button>
+                        <button class="toggle-btn">View More</button>
                     </div>
-                    <div class="service-card">
-                        <h3>Career Growth</h3>
+                    
+                    <div class="course-card">
+                        <h3>🚀 Career Growth</h3>
                         <ul class="course-list">
-                            <li>Interview Coaching & Mock Interviews</li>
-                            <li>Personality Development</li>
-                            <li>Spoken English & Communication</li>
-                            <li>Resume Building Workshops</li>
-                            <li>Corporate Training</li>
-                            <li>Leadership Skills</li>
-                            <li>Public Speaking</li>
                             <li>Soft Skills Training</li>
+                            <li>Interview Preparation (Mock)</li>
+                            <li>Resume & CV Building</li>
+                            <li>Spoken English & Communication</li>
+                            <li>Personality Development</li>
+                            <li>Leadership & Teamwork</li>
+                            <li>Public Speaking</li>
+                            <li>Corporate Etiquette</li>
+                            <li>Group Discussion (GD) Tips</li>
+                            <li>Time Management Skills</li>
+                            <li>Critical Thinking</li>
                         </ul>
-                        <button class="view-courses-btn">
-                            View More
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M6 9l6 6 6-6" />
-                            </svg>
-                        </button>
+                        <button class="toggle-btn">View More</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Our Offerings Section (Replaces Mentors) -->
-        <section id="offerings" class="offerings">
+        <section id="offerings" class="bg-alt">
             <div class="container">
-                <h2 class="section-title">Our Offerings</h2>
+                <div class="section-header"><h2 class="section-title">Our Offerings</h2></div>
                 <div class="offerings-grid">
-                    <div class="offering-card">
-                        <div class="offering-icon">📜</div>
-                        <h3>Certification</h3>
-                        <p>Industry-recognized certificates upon course completion.</p>
-                    </div>
-                    <div class="offering-card">
-                        <div class="offering-icon">🧠</div>
-                        <h3>Knowledge</h3>
-                        <p>Deep, practical knowledge from industry experts.</p>
-                    </div>
-                    <div class="offering-card">
-                        <div class="offering-icon">🤝</div>
-                        <h3>Mentorship</h3>
-                        <p>Guidance from experienced professionals.</p>
-                    </div>
-                    <div class="offering-card">
-                        <div class="offering-icon">👤</div>
-                        <h3>One-to-One Support</h3>
-                        <p>Personalized attention to clear all your doubts.</p>
-                    </div>
-                    <div class="offering-card">
-                        <div class="offering-icon">💻</div>
-                        <h3>Advanced Infrastructure</h3>
-                        <p>High-tech labs and modern learning environment.</p>
-                    </div>
+                    <div class="offering-item"><span class="offering-icon">📜</span><h4>Certification</h4><p>Valid & Recognized.</p></div>
+                    <div class="offering-item"><span class="offering-icon">👨‍🏫</span><h4>Expert Mentors</h4><p>Industry veterans.</p></div>
+                    <div class="offering-item"><span class="offering-icon">🤝</span><h4>Placement</h4><p>Hiring support.</p></div>
+                    <div class="offering-item"><span class="offering-icon">💡</span><h4>Practical Labs</h4><p>Hands-on coding.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- Achievers Section (Hybrid Slider) -->
-        <section id="achievers" class="achievers">
+        <section id="achievers">
             <div class="container">
-                <h2 class="section-title">Our Achievers</h2>
-                <div class="achievers-wrapper" id="achievers-wrapper">
+                <div class="section-header">
+                    <h2 class="section-title">Hall of Fame</h2>
+                    <p class="section-desc">Celebrating our 50+ Top Achievers</p>
+                </div>
+                <div class="achievers-container">
                     <div class="achievers-track" id="achievers-track">
-                        <!-- Content generated by JS -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="contact">
+        <section id="contact" class="bg-alt">
             <div class="container">
-                <h2 class="section-title">Contact Us</h2>
-                <div class="contact-card">
-                    <div class="contact-info-grid">
-                        <div class="contact-item">
-                            <div class="contact-icon-circle">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path
-                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <p>7598659947</p>
+                <div class="section-header"><h2 class="section-title">Contact Us</h2></div>
+                <div class="contact-wrapper">
+                    <div class="contact-details">
+                        <div class="contact-point">
+                            <div class="cp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div>
+                            <div class="cp-text"><h4>Phone</h4><p>+91 98765 43210</p></div>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon-circle">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path
-                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                    </path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                            </div>
-                            <p>contact@hamzacoaching.com</p>
+                        <div class="contact-point">
+                            <div class="cp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+                            <div class="cp-text"><h4>Email</h4><p>contact@hamzacoaching.com</p></div>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon-circle">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                            </div>
-                            <p>Erode, Tamil Nadu</p>
+                        <div class="contact-point">
+                            <div class="cp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+                            <div class="cp-text"><h4>Address</h4><p>Erode,Tamil Nadu.</p></div>
                         </div>
                     </div>
-
-                    <div class="social-links">
-                        <a href="#" class="social-icon" aria-label="LinkedIn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                                </path>
-                                <rect x="2" y="9" width="4" height="12"></rect>
-                                <circle cx="4" cy="4" r="2"></circle>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-icon" aria-label="Facebook">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-icon" aria-label="Instagram">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-icon" aria-label="WhatsApp">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
-                                </path>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-icon" aria-label="Twitter">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                                </path>
-                            </svg>
-                        </a>
+                    <div class="social-row">
+                        <a href="#" class="social-btn" aria-label="WhatsApp"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></a>
+                        <a href="#" class="social-btn" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                        <a href="#" class="social-btn" aria-label="Facebook"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                        <a href="#" class="social-btn" aria-label="LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
+    <footer>
         <div class="container">
             <p>&copy; 2024 Hamza Coaching Hub. All rights reserved.</p>
         </div>
@@ -1101,151 +422,84 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Menu
             const menuToggle = document.getElementById('menu-toggle');
             const navMenu = document.getElementById('nav-menu');
+            menuToggle.addEventListener('click', () => { menuToggle.classList.toggle('active'); navMenu.classList.toggle('active'); });
+            document.querySelectorAll('.nav-link').forEach(link => { link.addEventListener('click', () => { menuToggle.classList.remove('active'); navMenu.classList.remove('active'); }); });
+
+            // Theme
             const themeToggle = document.getElementById('theme-toggle');
             const body = document.body;
-
-            // Mobile Menu Toggle
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-
-            // Close menu when clicking a link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
-
-            // Theme Toggle
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                body.setAttribute('data-theme', savedTheme);
-            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                body.setAttribute('data-theme', 'dark');
-            }
-
+            if(localStorage.getItem('theme') === 'dark') body.setAttribute('data-theme', 'dark');
             themeToggle.addEventListener('click', () => {
-                if (body.getAttribute('data-theme') === 'dark') {
-                    body.setAttribute('data-theme', 'light');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    body.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                }
+                if(body.getAttribute('data-theme') === 'dark') { body.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); }
+                else { body.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
             });
 
-            // Infrastructure Slider Logic (Manual + Auto)
-            const infraSlider = document.getElementById('infra-slider');
+            // Slider
+            const slider = document.getElementById('infra-slider');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            let infraIndex = 0;
-            const infraCount = 3;
+            let index = 0; const count = 3;
+            function updateSlider() { slider.style.transform = `translateX(-${index * 100}%)`; }
+            nextBtn.addEventListener('click', () => { index = (index + 1) % count; updateSlider(); });
+            prevBtn.addEventListener('click', () => { index = (index - 1 + count) % count; updateSlider(); });
 
-            function updateInfraSlider() {
-                infraSlider.style.transform = `translateX(-${infraIndex * 100}%)`;
-            }
-
-            function nextInfra() {
-                infraIndex = (infraIndex + 1) % infraCount;
-                updateInfraSlider();
-            }
-
-            function prevInfra() {
-                infraIndex = (infraIndex - 1 + infraCount) % infraCount;
-                updateInfraSlider();
-            }
-
-            nextBtn.addEventListener('click', () => {
-                nextInfra();
-                resetInfraTimer();
-            });
-
-            prevBtn.addEventListener('click', () => {
-                prevInfra();
-                resetInfraTimer();
-            });
-
-            let infraTimer = setInterval(nextInfra, 5000);
-
-            function resetInfraTimer() {
-                clearInterval(infraTimer);
-                infraTimer = setInterval(nextInfra, 5000);
-            }
-
-            // Mobile Course Toggle Logic
-            const viewCourseBtns = document.querySelectorAll('.view-courses-btn');
-            viewCourseBtns.forEach(btn => {
+            // Courses Toggle (Mobile Only)
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const list = btn.previousElementSibling; // The UL is before the button
+                    const list = btn.previousElementSibling;
                     list.classList.toggle('expanded');
-                    btn.classList.toggle('active');
-
-                    if (list.classList.contains('expanded')) {
-                        btn.innerHTML = 'View Less <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
-                    } else {
-                        btn.innerHTML = 'View More <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
-                    }
+                    btn.textContent = list.classList.contains('expanded') ? 'View Less' : 'View More';
                 });
             });
 
-            // Generate 50+ Achievers
-            const achieversTrack = document.getElementById('achievers-track');
-            const achieverNames = ["Rahul", "Priya", "Amit", "Sneha", "Vikram", "Anjali", "David", "Kavya", "Arun", "Meera", "John", "Sara", "Mohamed", "Fatima", "Karthik", "Divya", "Suresh", "Lakshmi", "Ravi", "Anita"];
-            const achievements = ["GATE", "NEET", "JEE", "UPSC", "TNPSC", "Bank PO", "SSC", "Google", "Amazon", "Infosys", "TCS", "Wipro", "Zoho", "Accenture", "IBM", "Microsoft", "Oracle", "Cisco", "Intel", "Adobe"];
-
-            let achieverHTML = '';
-            for (let i = 1; i <= 60; i++) { // Generating 60 cards
-                const name = achieverNames[i % achieverNames.length] + " " + String.fromCharCode(65 + (i % 26));
-                const achievement = "Cleared " + achievements[i % achievements.length];
-                const detail = "Batch " + (2020 + (i % 5));
-                const color = i % 2 === 0 ? 'FFD700/000000' : '333333/FFFFFF';
-
-                achieverHTML += `
-                    <div class="achiever-card">
-                        <div class="achiever-icon"><i class="fas fa-user"></i></div>
-                        <div class="achiever-name">${name}</div>
-                        <div class="achiever-detail">${achievement}</div>
-                        <div class="achiever-detail">${detail}</div>
+            // --- Achievers JS Auto-Scroll + Touch ---
+            const scrollContainer = document.querySelector('.achievers-container');
+            const track = document.getElementById('achievers-track');
+            
+            // Generate Data
+            const names = ["Aarav", "Priya", "Rahul", "Sneha", "Vikram", "Anjali", "David", "Kavya", "Arun", "Meera"];
+            const exams = ["NEET", "JEE", "UPSC", "TNPSC", "GATE"];
+            let cards = '';
+            for(let i = 0; i < 20; i++) {
+                cards += `
+                    <div class="profile-card">
+                        <div class="profile-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        </div>
+                        <div class="profile-name">${names[i%names.length]}</div>
+                        <div class="profile-exam">Cleared ${exams[i%exams.length]}</div>
                     </div>
                 `;
             }
-            achieversTrack.innerHTML = achieverHTML;
+            track.innerHTML = cards + cards; // Duplicate for smooth looping
 
-            // Clone for infinite scroll effect (simple CSS animation needs enough content)
-            // Since we have 60 items, CSS animation will just scroll them.
-            // For true infinite loop without jumps, we duplicate the set.
-            achieversTrack.innerHTML += achieverHTML;
+            // Auto Scroll Logic
+            let scrollSpeed = 1; 
+            let isPaused = false;
+            
+            function autoScroll() {
+                if(!isPaused) {
+                    scrollContainer.scrollLeft += scrollSpeed;
+                    if (scrollContainer.scrollLeft >= (track.scrollWidth / 2)) {
+                         scrollContainer.scrollLeft = 0; 
+                    }
+                }
+                requestAnimationFrame(autoScroll);
+            }
+            
+            // Touch/Hover Events6
+            scrollContainer.addEventListener('mouseenter', () => isPaused = true);
+            scrollContainer.addEventListener('touchstart', () => isPaused = true);
+            scrollContainer.addEventListener('mouseleave', () => isPaused = false);
+            scrollContainer.addEventListener('touchend', () => isPaused = false);
+            
+            // Start
+            autoScroll();
         });
-        <script>
-const themeToggle = document.getElementById('theme-toggle');
-const htmlEl = document.documentElement; // <html> element
-
-// Load saved theme if exists
-if(localStorage.getItem('theme') === 'dark') {
-    htmlEl.setAttribute('data-theme', 'dark');
-}
-
-themeToggle.addEventListener('click', () => {
-    if(htmlEl.getAttribute('data-theme') === 'dark') {
-        htmlEl.removeAttribute('data-theme'); // Switch to light
-        localStorage.setItem('theme', 'light');
-    } else {
-        htmlEl.setAttribute('data-theme', 'dark'); // Switch to dark
-        localStorage.setItem('theme', 'dark');
-    }
-});
-</script>
-
-        <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.in/widget?wc=siq4630253b3f25a7a11802887a1af05fdc7ada65d21a51dd994b77d6bdb0b28254" defer></script>
+    </script>
+    <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.in/widget?wc=siq4630253b3f25a7a11802887a1af05fdc7ada65d21a51dd994b77d6bdb0b28254" defer></script>
 </body>
-
 </html>
-
-
-
-
-
