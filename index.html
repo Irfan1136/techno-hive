@@ -65,7 +65,7 @@
         .header-controls { display: flex; align-items: center; gap: 1rem; order: 2; }
 
         .nav-menu { order: 1; }
-        .nav-list { display: flex; list-style: none; gap: 2rem; }
+        .nav-list { display: flex; list-style: none; gap: 1.5rem; } /* Adjusted gap to fit items */
         .nav-link { color: var(--text-color); text-decoration: none; font-weight: 600; position: relative; padding: 5px 0; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 3px; bottom: 0; left: 0; background-color: var(--primary-color); transition: var(--transition); border-radius: 2px; }
         .nav-link:hover::after { width: 100%; }
@@ -117,88 +117,93 @@
             transition: var(--transition); 
             position: relative; 
             overflow: hidden; 
-            border-top: 5px solid transparent; /* Placeholder for colors */
+            border-top: 5px solid transparent; 
         }
         
         .course-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
         .course-card h3 { font-size: 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
         
-        /* --- Unique Colors for Course Cards --- */
-        /* 1. Technical (Cyan/Blue) */
+        /* 1. Technical (Cyan) */
         .courses-grid .course-card:nth-child(1) { border-color: #FFD700; }
-        .courses-grid .course-card:nth-child(1) h3 { color:  #FFD700; }
-
-        /* 2. Competitive (Orange/Red) */
-        .courses-grid .course-card:nth-child(2) { border-color:  #FFD700; }
-        .courses-grid .course-card:nth-child(2) h3 { color:  #FFD700; }
-
+        .courses-grid .course-card:nth-child(1) h3 { color: #FFD700; }
+        /* 2. Competitive (Orange) */
+        .courses-grid .course-card:nth-child(2) { border-color: #FFD700; }
+        .courses-grid .course-card:nth-child(2) h3 { color: #FFD700; }
         /* 3. Entrance (Green) */
-        .courses-grid .course-card:nth-child(3) { border-color:  #FFD700; }
-        .courses-grid .course-card:nth-child(3) h3 { color:  #FFD700; }
+        .courses-grid .course-card:nth-child(3) { border-color: #FFD700; }
+        .courses-grid .course-card:nth-child(3) h3 { color: #FFD700; }
+        /* 4. Career (Purple) */
+        .courses-grid .course-card:nth-child(4) { border-color: #FFD700; }
+        .courses-grid .course-card:nth-child(4) h3 { color: #FFD700; }
 
-        /* 4. Career Growth (Purple) */
-        .courses-grid .course-card:nth-child(4) { border-color:  #FFD700; }
-        .courses-grid .course-card:nth-child(4) h3 { color:  #FFD700; }
-
-        /* Course List Styling */
-        .course-list { 
-            list-style: none; 
-            transition: max-height 0.5s ease;
-        }
-
+        .course-list { list-style: none; transition: max-height 0.5s ease; }
         .course-list::-webkit-scrollbar { width: 6px; }
         .course-list::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 3px; }
         .course-list::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
-        
         .course-list li { padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); color: var(--text-light); display: flex; align-items: center; gap: 10px; }
         .course-list li:last-child { border-bottom: none; }
         .course-list li::before { content: '🐝'; font-size: 0.8rem; }
-
         .toggle-btn { width: 100%; margin-top: 1.5rem; padding: 0.8rem; background: transparent; border: 2px solid var(--primary-color); color: var(--text-color); font-weight: 700; border-radius: 10px; cursor: pointer; transition: var(--transition); }
-        .toggle-btn:hover { background: var(--primary-color); color: #000; }
-
-        /* --- BIG SCREEN (Desktop) Behavior: No Toggle, Always Scroll --- */
+        
         @media (min-width: 769px) {
-            .toggle-btn { display: none; } /* Hide Button */
-            .course-list {
-                max-height: 300px; /* Fixed Height */
-                overflow-y: auto;  /* Enable Scroll */
-                padding-right: 5px;
-            }
+            .toggle-btn { display: none; }
+            .course-list { max-height: 300px; overflow-y: auto; padding-right: 5px; }
+        }
+        @media (max-width: 768px) {
+            .course-list { max-height: 200px; overflow: hidden; }
+            .course-list.expanded { max-height: 500px; overflow-y: visible; }
         }
 
-        /* --- MOBILE Behavior: Toggle Button --- */
-        @media (max-width: 768px) {
-            .course-list { max-height: 200px; overflow: hidden; } /* Collapsed */
-            .course-list.expanded { max-height: 500px; overflow-y: visible; } /* Expanded */
+        /* --- Offerings Section (Enhanced) --- */
+        .offerings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+        
+        .offering-item { 
+            background: var(--card-bg); 
+            padding: 2.5rem 2rem; 
+            border-radius: var(--border-radius); 
+            text-align: center; 
+            box-shadow: var(--shadow); 
+            transition: var(--transition);
+            border-bottom: 4px solid transparent; 
         }
+        
+        .offering-item:hover { 
+            transform: translateY(-8px); 
+            border-color: var(--primary-color); 
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .offering-icon { 
+            font-size: 3.5rem; 
+            margin-bottom: 1.5rem; 
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.1); /* Subtle Gold BG */
+            width: 80px; height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .offering-item:hover .offering-icon {
+            background: var(--primary-color);
+            transform: rotateY(180deg);
+        }
+        
+        .offering-item h4 { font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .offering-item p { color: var(--text-light); }
 
         /* --- Achievers --- */
-        .achievers-container {
-            width: 100%;
-            overflow-x: auto;
-            position: relative;
-            padding: 2rem 0;
-            cursor: grab;
-            scrollbar-width: none; 
-            -ms-overflow-style: none;
-        }
+        .achievers-container { width: 100%; overflow-x: auto; position: relative; padding: 2rem 0; cursor: grab; scrollbar-width: none; -ms-overflow-style: none; }
         .achievers-container::-webkit-scrollbar { display: none; }
         .achievers-track { display: flex; gap: 2rem; width: max-content; }
-
         .profile-card { width: 250px; background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.05); user-select: none; }
-        .profile-icon { width: 70px; height: 70px; margin: 0 auto 1rem; background-color: #FFD700; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-color); }
+        .profile-icon { width: 70px; height: 70px; margin: 0 auto 1rem; background-color:#FFD700 ; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-color); }
         .profile-icon svg { width: 35px; height: 35px; }
         .profile-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.2rem; }
         .profile-exam { color: var(--primary-dark); font-weight: 600; font-size: 0.9rem; }
         .profile-batch { color: var(--text-light); font-size: 0.8rem; margin-top: 5px; }
 
-        /* Offerings & Contact */
-        .offerings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
-        .offering-item { background: var(--card-bg); padding: 2rem; border-radius: var(--border-radius); text-align: center; box-shadow: var(--shadow); transition: var(--transition); }
-        .offering-item:hover { transform: translateY(-5px); border-bottom: 4px solid var(--primary-color); }
-        .offering-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
-
+        /* Contact & Social */
         .contact-wrapper { background: var(--card-bg); border-radius: var(--border-radius); box-shadow: var(--shadow); overflow: hidden; max-width: 900px; margin: 0 auto; padding: 3rem; }
         .contact-details { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; text-align: center; }
         .cp-icon { width: 50px; height: 50px; background: var(--primary-color); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
@@ -236,6 +241,7 @@
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="#courses" class="nav-link">Courses</a></li>
+                    <li><a href="#offerings" class="nav-link">Offerings</a></li>
                     <li><a href="#achievers" class="nav-link">Achievers</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
@@ -364,10 +370,22 @@
             <div class="container">
                 <div class="section-header"><h2 class="section-title">Our Offerings</h2></div>
                 <div class="offerings-grid">
-                    <div class="offering-item"><span class="offering-icon">📜</span><h4>Certification</h4><p>Valid & Recognized.</p></div>
-                    <div class="offering-item"><span class="offering-icon">👨‍🏫</span><h4>Expert Mentors</h4><p>Industry veterans.</p></div>
-                    <div class="offering-item"><span class="offering-icon">🤝</span><h4>Placement</h4><p>Hiring support.</p></div>
-                    <div class="offering-item"><span class="offering-icon">💡</span><h4>Practical Labs</h4><p>Hands-on coding.</p></div>
+                    <div class="offering-item">
+                        <span class="offering-icon">📜</span>
+                        <h4>Certification</h4><p>Valid & Recognized.</p>
+                    </div>
+                    <div class="offering-item">
+                        <span class="offering-icon">👨‍🏫</span>
+                        <h4>Expert Mentors</h4><p>Industry veterans.</p>
+                    </div>
+                    <div class="offering-item">
+                        <span class="offering-icon">🤝</span>
+                        <h4>Placement</h4><p>Hiring support.</p>
+                    </div>
+                    <div class="offering-item">
+                        <span class="offering-icon">💡</span>
+                        <h4>Practical Labs</h4><p>Hands-on coding.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -490,7 +508,7 @@
                 requestAnimationFrame(autoScroll);
             }
             
-            // Touch/Hover Events6
+            // Touch/Hover Events
             scrollContainer.addEventListener('mouseenter', () => isPaused = true);
             scrollContainer.addEventListener('touchstart', () => isPaused = true);
             scrollContainer.addEventListener('mouseleave', () => isPaused = false);
